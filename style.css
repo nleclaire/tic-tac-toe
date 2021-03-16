@@ -1,0 +1,49 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    flex-wrap: wrap;
+    height: 500px;
+    width: 500px;
+}
+
+.board {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.square {
+    height: 150px;
+    width: 150px;
+}
+
+#zero {
+    background-color: red;
+}
+#one {
+    background-color: green;
+}
+#two {
+    background-color: blue;
+}
+#three {
+    background-color: darkred;
+}
+#four {
+    background-color: darkgreen;
+}
+#five {
+    background-color: darkblue;
+}
+#six {
+    background-color: indianred;
+}
+#seven {
+    background-color: lawngreen;
+}
+#eight {
+    background-color: blueviolet;
+}
