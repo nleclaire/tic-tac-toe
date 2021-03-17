@@ -15,6 +15,36 @@
     grid-template-rows: 1fr 1fr 1fr;
 }
 
+.game-over {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #111;
+    opacity: 1;
+    animation: fadein 0.5s;
+}
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/*@keyframes dropdown {*/
+/*    from {*/
+/*        translateY(-100%)*/
+/*    }*/
+/*    to {*/
+/*        translateY(-50%);*/
+/*    }*/
+/*}*/
+
 .square {
     height: 150px;
     width: 150px;
