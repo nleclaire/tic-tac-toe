@@ -1,3 +1,7 @@
+body {
+    font-family: arial;
+}
+
 .container {
     display: flex;
     flex-direction: row;
@@ -15,18 +19,6 @@
     grid-template-rows: 1fr 1fr 1fr;
 }
 
-.game-over {
-    position: absolute;
-    height: 500px;
-    width: 500px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #111;
-    opacity: 1;
-    animation: fadein 0.5s;
-}
-
 @keyframes fadein {
     from {
         opacity: 0;
@@ -36,44 +28,45 @@
     }
 }
 
-/*@keyframes dropdown {*/
-/*    from {*/
-/*        translateY(-100%)*/
-/*    }*/
-/*    to {*/
-/*        translateY(-50%);*/
-/*    }*/
+.game-over {
+    position: absolute;
+    height: 500px;
+    width: 500px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #111;
+    opacity: 1;
+    animation: fadein 0.75s;
+    color: white;
+    align-items: center;
+    vertical-align: auto;
+}
+
+/*#game-over-text {*/
+/*    text-align: center;*/
+/*    overflow-wrap: anywhere;*/
 /*}*/
 
-.square {
-    height: 150px;
-    width: 150px;
+.reset-button {
+    height: 100px;
+    /*width: auto;*/
+    align-self: center;
+    min-width: 200px;
+    max-width: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: black;
+    font-size: 32px;
+    background: lawngreen;
 }
 
-#0 {
-    background-color: red;
-}
-#1 {
-    background-color: green;
-}
-#two {
-    background-color: blue;
-}
-#three {
-    background-color: darkred;
-}
-#four {
-    background-color: darkgreen;
-}
-#five {
-    background-color: darkblue;
-}
-#six {
-    background-color: indianred;
-}
-#seven {
-    background-color: lawngreen;
-}
-#eight {
-    background-color: blueviolet;
+.square {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    font-size: 100px;
+    justify-content: center;
+    align-items: center;
 }
