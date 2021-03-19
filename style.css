@@ -43,22 +43,17 @@ body {
     align-items: center;
 }
 
-/*#game-over-text {*/
-/*    text-align: center;*/
-/*    overflow-wrap: anywhere;*/
-/*}*/
-
 .reset-button {
     height: 100px;
     align-self: center;
     min-width: 200px;
-    /*max-width: 300px;*/
     display: flex;
     justify-content: center;
     align-items: center;
     color: black;
     font-size: 32px;
     background: lawngreen;
+    font-weight: 900;
 }
 
 .reset-button:hover {

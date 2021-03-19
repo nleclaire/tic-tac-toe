@@ -1,11 +1,23 @@
 const State = class {
-    constructor() {
-        this.board = [
+    constructor(board) {
+        board ? this.board = board : this.board = [
             'E', 'E', 'E',
             'E', 'E', 'E',
             'E', 'E', 'E'
-        ]
+        ];
+        this.oMovesCount = 0;
+        this.emptyCells = () => {
+            let indexes = [];
+            for (let i = 0; i < this.board.length; i++) {
+                if (this.board[i] =='E') {
+                    indexes.push(i);
+                }
+            }
+            return indexes;
+        }
     }
+
+
 
     // isTerminal checks for win conditions and draws
     isTerminal() {
@@ -35,7 +47,7 @@ const State = class {
             }
         }
         // Check for a draw
-        this.board.includes('E') ? null : game.gameOver('draw');
+        this.board.includes('E') ? console.log('still running') : game.gameOver('draw');
     }
 }
 
@@ -50,15 +62,20 @@ const Game = class {
     turn(target) {
         if (player == 'X') {
             target.innerText = 'X';
-        } else {
+        } else if (player == 'O') {
             target.innerText = 'O';
         }
         // update that state
         state.board[target.id] == 'E' ? state.board[target.id] = player : null;
-        // is the game over?
+        // check win conditions
         state.isTerminal() ? console.log(state.board[target.id] + " has won the game") : null;
         // switch players
-        player == 'X' ? player = 'O' : player = 'X';
+        player == 'X'? player = 'O' : player = 'X';
+        // if playing w/ AI, make a move
+        if (player == 'O' && AIplayer && !state.isTerminal()) {
+            AIplayer.makeAMove();
+            state.isTerminal();
+        }
     }
 
     // Cover board w/ game-over div
@@ -70,8 +87,8 @@ const Game = class {
                 `<div class='reset-button'>Reset board</div>`
         } else {
             document.querySelector('#game-over-text').innerHTML = "" +
-                `<h1>A strange game. <br> <br> The only winning move is not to play.</h1>` +
-                `<div class='reset-button'>Play again?</div>`
+                `<h1 style='text-align: center'>A strange game. <br> <br> The only winning move is not to play.</h1>` +
+                `<div class='reset-button'>Play again</div>`
         }
         document.querySelector('.reset-button').addEventListener('click', () => this.reset());
     }
@@ -101,23 +118,47 @@ const AI = class {
         this.score = 0;
     }
 
-    availableNextMoves() {
-        let nextState = [...state.board]
-        console.log(nextState)
-        for (let i = 0; i < this.state.length; i++) {
-            if (nextState[i] == 'E') {
-                nextState[i] = 'O';
-                console.log(nextState);
-                break
-            } else { i++ }
+    calculateNextMoves() {
+        let nextState = [...state.board];
+        for (let i = 0; i < nextState.length; i++) {
+            let newState = new State(nextState);
+            console.log(newState.board);
+
+            // if (newState.board[i] == 'E') {
+            newState.board[i] = 'O';
+            console.log(newState.board)
+            if (i !== 0) {
+                newState.board[i - 1] = 'E';
+            }
+            console.log(newState)
+                // this.isGameOver(nextState);
+                // newState.isGameOver();
+                // newState.isTerminal();
+            // } else { console.log(`can\'t move at position ${i}`)}
         }
 
     }
 
+    makeAMove() {
+        let available = state.emptyCells();
+        console.log(available)
+        let randomCell = Math.floor(Math.random() * available.length);
+        console.log(available[randomCell]);
+        console.log(state)
+        if (state.board[randomCell] == 'E') {
+            game.turn(boxes[available[randomCell]]);
+            state.board[available[randomCell]] = 'O';
+        } else {
+            this.makeAMove();
+        }
+            // boxes[randomCell].id;
+
+    }
+
     isGameOver(board) {
-        if (state.isTerminal() == 'X') {
+        if (board.isTerminal() == 'X') {
             return -10;
-        } else if (state.isTerminal() == 'O') {
+        } else if (board.isTerminal() == 'O') {
             return 10;
         } else {
             return 5;
@@ -125,24 +166,31 @@ const AI = class {
     }
 }
 
-let AIplayer = new AI(game);
+let prompt = window.prompt('Would you like to play with an AI? (y/n)');
 
-AIplayer.availableNextMoves();
+if (prompt.toLowerCase() == 'y') {
+    AIplayer = new AI(game);
+}
+
+// AIplayer.calculateNextMoves();
 
 
-
+// List of colors to apply to squares
 const colors = [
     'red', 'green', 'blue',
     'darkred', 'darkgreen', 'darkblue',
     'mediumvioletred', 'lawngreen', 'blueviolet'
 ];
 
+// Grab each square
 let boxes = document.querySelectorAll('.square');
 
+// Add event listeners to each square
 boxes.forEach((item) => {
     item.addEventListener('click', (event) => {
         event.target.innerText == "" ? game.turn(event.target) : null;
     });
 });
 
+// Apply color to each square
 colors.forEach((color, index) => boxes[index].style.backgroundColor = color);
