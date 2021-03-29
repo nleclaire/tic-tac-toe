@@ -11,10 +11,6 @@ https://nleclaire.github.io/tic-tac-toe/
 
 Technologies used were JavaScript, HTML, CSS. My goal was to use as little HTML as possible.
 
-## Planning process
-
-I didn't draft up any wireframes for the UI itself but I did come up with a flow diagram for the AI function I'd like to implement.
-
 # User stories
 
 You can find my user stories in the issues tab of this repo https://github.com/nleclaire/tic-tac-toe/issues
